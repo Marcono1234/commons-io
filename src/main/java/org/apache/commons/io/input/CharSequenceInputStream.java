@@ -76,14 +76,13 @@ public class CharSequenceInputStream extends InputStream {
         if (bufferSize < 1) {
             throw new IllegalArgumentException("Buffer size must be >= 1");
         }
-        // TODO: bufferSize is unused
 
         // @formatter:off
         CharsetEncoder charsetEncoder = charset.newEncoder()
             .onMalformedInput(CodingErrorAction.REPLACE)
             .onUnmappableCharacter(CodingErrorAction.REPLACE);
         // @formatter:on
-        this.delegateStream = new ReaderInputStream(cs, charsetEncoder);
+        this.delegateStream = new ReaderInputStream(cs, charsetEncoder, bufferSize);
         this.markBuffer = null;
         this.isReadingFromBuffer = false;
         this.hasMark = false;
